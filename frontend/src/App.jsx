@@ -1,15 +1,37 @@
+import { Suspense } from "react";
+import "@App.css";
 
-import Signup from "./Signup";
-import Login from "./Login";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+} from "react-router-dom";
 
-function App() {
-    return (
-        <div>
-            <Signup />
-            <hr />
-            <Login />
-        </div>
-    );
+import Body from "@/components/main/Body";
+import { routes } from "@/routes";
+
+function App(){
+    return(
+        <BrowserRouter>
+        <Suspense fallback={<h1>Loading...</h1>}>
+        <Routes>
+          <Route path="/" element={<Body />}>
+          {routes.map((route) => {
+            const Component = route.component;
+
+            return(
+                <Route 
+                key={route.path}
+                path={route.path}
+                element={<Component />}
+                 />    
+            )
+          })}     
+     </Route>
+   </Routes>
+ </Suspense>
+</BrowserRouter> 
+);
 }
 
 export default App;
