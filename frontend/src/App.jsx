@@ -6,12 +6,15 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-
+import { Provider } from "react-redux";
+import appStore from "@/store/appStore";
 import Body from "@/components/main/Body";
 import { routes } from "@/routes";
 
 function App(){
     return(
+      <>
+      <Provider store={appStore}>
         <BrowserRouter>
         <Suspense fallback={<h1>Loading...</h1>}>
         <Routes>
@@ -31,6 +34,8 @@ function App(){
    </Routes>
  </Suspense>
 </BrowserRouter> 
+</Provider>
+</>
 );
 }
 
