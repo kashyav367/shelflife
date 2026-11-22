@@ -27,5 +27,57 @@ const login = async(req,res,next) => {
     catch(error){
         next(error)
     }
+};
+
+const refresh = async(req,res,next) => {
+    try{
+        const { accessToken } = 
+        await authService.refresh(
+            req.cookies.refreshToken
+        );
+
+        ApiResponse.ok(
+            res,
+            "Token refreshed successfully",
+            { accessToken }
+        );
+    } catch(error){
+        nest(error);
+    }
+};
+
+const getMe  = async(req,res,next) => {
+    try{
+       const userId = req.userId;
+
+       console.log("userId", userId);
+
+       const { user } = await authService.getMe(userId);
+
+       ApiResponse.ok(
+        res,
+        "User get successfully",
+        { user }
+       );
+    }
+    catch(error){
+        next(error)
+    }
 }
-export { register, login };
+
+const logout = async(req,res,next) => {
+
+    try{
+      res.clearCookie("refreshToken");
+
+      ApiResponse.ok(
+        res,
+        "Logout Success"
+      )
+    }
+    catch(error){
+        next(error);
+    }
+};
+
+export { register, login , refresh, getMe, logout};

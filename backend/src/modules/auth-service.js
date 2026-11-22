@@ -133,4 +133,49 @@ const login = async ({ email, password }) => {
     };
 };
 
-export { register, login };
+const refresh = async(token) => {
+   if(!token){
+    throw ApiError.unauthorized("Refresh token missing");
+   }
+   const decoded = verifyRefreshToken(token);
+
+   const userExists  = await userModel.findOne({
+    _id: decoded.userId,
+   });
+
+   if(!userExists){
+    throw ApiError.notFound("User Not found");
+   }
+
+   const accessToken = generateAccessToken({
+    userId : userExists._id,
+   })
+
+   return { accessToken }
+}
+
+
+const getMe = async (userId) => {
+
+    if (!userId) {
+        throw ApiError.notFound("User not found");
+    }
+
+    const userExist = await userModel.findById(userId);
+
+    if (!userExist) {
+        throw ApiError.notFound("User not found");
+    }
+
+    return {
+        user: {
+            userId: userExist._id,
+            firstName: userExist.firstName,
+            lastName: userExist.lastName,
+            username: userExist.username,
+            email: userExist.email,
+            phoneNumber: userExist.phoneNumber,
+        },
+    };
+};
+export { register, login, refresh, getMe };
