@@ -4,7 +4,7 @@ import { lazy } from "react";
 export const routes = [
   {
     path: "/",
-    Component: lazy(() => import("@/components/joinHouseHold")),
+    Component: lazy(() => import("@/components/JoinHouseHold")),
     isProtected: false,
   },
   {

@@ -1,5 +1,5 @@
 import jwt from "jsonWebToken";
-import userModel from "../auth/auth-Model.js";
+import userModel from "./auth-model.js";
 import ApiError from "../../common/api-error.js";
 import { verifyAccessToken } from "../../common/utils/jwt-utils.js"
 
@@ -30,4 +30,4 @@ const authMileware = async(req,res,next) => {
     next(error);
   }
 };
-export default authMiddleware
+export default authMiddleware;
