@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "./api";
+import { logout } from "./api.js"
 import { clearTokens } from "@/utils/token";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "@/store/userSlice";
